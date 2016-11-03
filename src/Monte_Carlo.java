@@ -7,8 +7,8 @@ public class Monte_Carlo {
 
     public static void main(String[] args){
 
-        float deltaUp = 0.1f;
-        float deltaDown = 0.2f;
+        float deltaUp = 0.01f;
+        float deltaDown = 0.01f;
 
         float startPrice = 10;
 
@@ -102,11 +102,11 @@ public class Monte_Carlo {
 
 
     public static double theoreticalTimeUP(float deltaUp, float mu, float sigma){ //  time between the last down next UP
-        return (Math.exp(2 * mu / (sigma * sigma) * deltaUp) - 2 * mu / (sigma * sigma) * deltaUp - 1) / (2 * mu * mu / (sigma * sigma));
+        return (Math.exp(-2 * mu / (sigma * sigma) * deltaUp) + 2 * mu / (sigma * sigma) * deltaUp - 1) / (2 * mu * mu / (sigma * sigma));
     }
 
     public static double theoreticalTimeDOWN(float deltaDown, float mu, float sigma){ // time between last up and the next DOWN
-        return (Math.exp(-2 * mu / (sigma * sigma) * deltaDown) + 2 * mu / (sigma * sigma) * deltaDown - 1) / (2 * mu * mu / (sigma * sigma));
+        return (Math.exp(2 * mu / (sigma * sigma) * deltaDown) - 2 * mu / (sigma * sigma) * deltaDown - 1) / (2 * mu * mu / (sigma * sigma));
     }
 
     public static double theoreticalNoTrendTimeUP (float deltaUp, float sigma){

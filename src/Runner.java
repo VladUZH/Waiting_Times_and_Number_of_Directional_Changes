@@ -44,7 +44,7 @@ public class Runner {
         }
 
         if( type == -1 ){
-            if( (aTick.price - extreme) / extreme * 100 >= deltaUp ){
+            if( (aTick.price - extreme) >= deltaUp ){
                 prevExtreme = extreme;
                 type = 1;
                 extreme = aTick.price;
@@ -58,7 +58,7 @@ public class Runner {
                 return 0;
             }
         }else if( type == 1 ){
-            if( (aTick.price - extreme) / extreme * 100 <= -deltaDown ){
+            if( (aTick.price - extreme) <= -deltaDown ){
                 prevExtreme = extreme;
                 type = -1;
                 extreme = aTick.price;
