@@ -1,5 +1,4 @@
 /**
- * Created by Vladimir Petrov on 28.05.2016.
  */
 
 public class ATick {
@@ -12,10 +11,6 @@ public class ATick {
         this.price = price;
 
     }
-
-    ATick(){
-    }
-
 
 
 }
