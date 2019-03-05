@@ -1,3 +1,5 @@
+import market.Price;
+
 /**
  */
 public class Runner {
@@ -8,20 +10,19 @@ public class Runner {
     public boolean initalized;
     public boolean absolute;
 
-    public Runner(double threshUp, double threshDown, ATick aTick, int type, boolean absolute){
-        extreme = aTick.price;
+    public Runner(double threshUp, double threshDown, int type, boolean absolute){
         this.type = type; deltaUp = threshUp; deltaDown = threshDown; initalized = true; this.absolute = absolute;
     }
 
 
-    public int run(ATick aTick){
+    public int run(Price aTick){
 
         if( aTick == null )
             return 0;
 
         if( !initalized ){
             initalized = true;
-            extreme = aTick.price;
+            extreme = aTick.getMid();
             return 0;
         }
 
@@ -35,25 +36,25 @@ public class Runner {
     }
 
 
-    private int absoluteRun(ATick aTick){
+    private int absoluteRun(Price aTick){
         if( type == -1 ){
-            if( (aTick.price - extreme) >= deltaUp ){
+            if( (aTick.getMid() - extreme) >= deltaUp ){
                 type = 1;
-                extreme = aTick.price;
+                extreme = aTick.getMid();
                 return 1;
             }
-            if( aTick.price < extreme ){
-                extreme = aTick.price;
+            if( aTick.getMid() < extreme ){
+                extreme = aTick.getMid();
                 return 0;
             }
         }else if( type == 1 ){
-            if( (aTick.price - extreme) <= -deltaDown ){
+            if( (aTick.getMid() - extreme) <= -deltaDown ){
                 type = -1;
-                extreme = aTick.price;
+                extreme = aTick.getMid();
                 return -1;
             }
-            if( aTick.price > extreme ){
-                extreme = aTick.price;
+            if( aTick.getMid() > extreme ){
+                extreme = aTick.getMid();
                 return 0;
             }
         }
@@ -61,25 +62,25 @@ public class Runner {
         return 0;
     }
 
-    private int relativeRun(ATick aTick){
+    private int relativeRun(Price aTick){
         if( type == -1 ){
-            if( (aTick.price - extreme) / extreme >= deltaUp ){
+            if( (aTick.getMid() - extreme) / extreme >= deltaUp ){
                 type = 1;
-                extreme = aTick.price;
+                extreme = aTick.getMid();
                 return 1;
             }
-            if( aTick.price < extreme ){
-                extreme = aTick.price;
+            if( aTick.getMid() < extreme ){
+                extreme = aTick.getMid();
                 return 0;
             }
         }else if( type == 1 ){
-            if( (aTick.price - extreme) / aTick.price <= -deltaDown ){
+            if( (aTick.getMid() - extreme) / aTick.getMid() <= -deltaDown ){
                 type = -1;
-                extreme = aTick.price;
+                extreme = aTick.getMid();
                 return -1;
             }
-            if( aTick.price > extreme ){
-                extreme = aTick.price;
+            if( aTick.getMid() > extreme ){
+                extreme = aTick.getMid();
                 return 0;
             }
         }
